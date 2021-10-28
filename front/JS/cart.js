@@ -33,15 +33,25 @@ function displayProductsInCart() {
       </div>
     </div>       
     </article>`;
+
     totals();
   });
 }
 
 function totals() {
   let totalQuantity = document.getElementById("totalQuantity");
-  // let totalPrice = document.getElementById("totalPrice");
+  let totalPrice = document.getElementById("totalPrice");
 
   const sumQuantity = storageContent.map((element) => element.quantity);
-  let result = sumQuantity.reduce((number1, number2) => number1 + number2);
-  totalQuantity.textContent = result;
+  let resultQuantity = sumQuantity.reduce(
+    (number1, number2) => number1 + number2
+  );
+  totalQuantity.textContent = resultQuantity;
+
+  const sumPrices = storageContent.map((element) => {
+    return element.quantity * element.price;
+  });
+  let resultPrice = sumPrices.reduce((number1, number2) => number1 + number2);
+  console.log(resultPrice);
+  totalPrice.textContent = resultPrice;
 }
