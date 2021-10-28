@@ -1,9 +1,10 @@
 "use strict";
+
+let storageContent = JSON.parse(localStorage.getItem("articlesInCart"));
+
 displayProductsInCart();
 
 function displayProductsInCart() {
-  let storageContent = JSON.parse(localStorage.getItem("articlesInCart"));
-
   storageContent.forEach((element) => {
     let itemsContainer = document.getElementById("cart__items");
 
@@ -32,7 +33,15 @@ function displayProductsInCart() {
       </div>
     </div>       
     </article>`;
+    totals();
   });
 }
 
-// voir pour template
+function totals() {
+  let totalQuantity = document.getElementById("totalQuantity");
+  // let totalPrice = document.getElementById("totalPrice");
+
+  const sumQuantity = storageContent.map((element) => element.quantity);
+  let result = sumQuantity.reduce((number1, number2) => number1 + number2);
+  totalQuantity.textContent = result;
+}
