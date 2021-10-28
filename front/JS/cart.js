@@ -5,6 +5,11 @@ let storageContent = JSON.parse(localStorage.getItem("articlesInCart"));
 displayProductsInCart();
 
 function displayProductsInCart() {
+  createElement();
+  totals();
+}
+
+function createElement() {
   storageContent.forEach((element) => {
     let itemsContainer = document.getElementById("cart__items");
 
@@ -33,8 +38,6 @@ function displayProductsInCart() {
       </div>
     </div>       
     </article>`;
-
-    totals();
   });
 }
 
