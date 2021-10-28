@@ -1,12 +1,11 @@
 "use strict";
-
 let storageContent = JSON.parse(localStorage.getItem("articlesInCart"));
-
 displayProductsInCart();
 
 function displayProductsInCart() {
   createElement();
   totals();
+  deleteArticle();
 }
 
 function createElement() {
@@ -55,6 +54,21 @@ function totals() {
     return element.quantity * element.price;
   });
   let resultPrice = sumPrices.reduce((number1, number2) => number1 + number2);
-  console.log(resultPrice);
+
   totalPrice.textContent = resultPrice;
+}
+
+function deleteArticle() {
+  let deleteButton = document.querySelectorAll(".deleteItem");
+
+  deleteButton.forEach((element) => {
+    let parent = element.closest("article");
+    element.addEventListener("click", () => {
+      parent.remove();
+
+      storageContent.splice(0, 1);
+      localStorage.setItem("articlesInCart", JSON.stringify(storageContent));
+      window.location.reload();
+    });
+  });
 }
