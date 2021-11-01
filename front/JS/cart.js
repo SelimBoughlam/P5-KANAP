@@ -12,7 +12,7 @@ function createElement() {
   storageContent.forEach((element) => {
     let itemsContainer = document.getElementById("cart__items");
 
-    itemsContainer.innerHTML += `<article class = "cart__item" data-id ="${element.id}">
+    itemsContainer.innerHTML += `<article class = "cart__item" data-id ="${element.id}" data-color ="${element.color}">
     <div class ="cart__item__img">
      <img src = ${element.img} alt = "${element.alt}">
     </div>
@@ -22,6 +22,7 @@ function createElement() {
        <h2>${element.name}</h2>
        <p>${element.price}€</p>
        <p>couleur : ${element.color}</p>
+       
 
        </div> 
 
@@ -30,8 +31,9 @@ function createElement() {
           <p>qté : </p>
           <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${element.quantity}">
         </div>  
-    
+        
       <div style = "padding-top:40px" class = "cart__item__content__settings__delete">
+     
         <p  class ="deleteItem">Supprimer</p>
       </div> 
       </div>
@@ -61,13 +63,21 @@ function totals() {
 function deleteArticle() {
   let deleteButton = document.querySelectorAll(".deleteItem");
 
-  deleteButton.forEach((element) => {
-    let parent = element.closest("article");
-    element.addEventListener("click", () => {
-      parent.remove();
+  deleteButton.forEach((button) => {
+    let parent = button.closest("article");
+    let parentId = parent.dataset.id;
+    let parentColor = parent.dataset.color;
+    console.log(parentColor);
 
-      storageContent.splice(0, 1);
-      localStorage.setItem("articlesInCart", JSON.stringify(storageContent));
+    button.addEventListener("click", () => {
+      let storageContentFilter = storageContent.filter(
+        (element) => element.id != parentId || element.color != parentColor
+      );
+
+      localStorage.setItem(
+        "articlesInCart",
+        JSON.stringify(storageContentFilter)
+      );
       window.location.reload();
     });
   });
