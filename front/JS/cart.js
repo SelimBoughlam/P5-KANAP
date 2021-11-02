@@ -6,6 +6,7 @@ function displayProductsInCart() {
   createElement();
   totals();
   deleteArticle();
+  changeQuantity();
 }
 
 function createElement() {
@@ -67,7 +68,6 @@ function deleteArticle() {
     let parent = button.closest("article");
     let parentId = parent.dataset.id;
     let parentColor = parent.dataset.color;
-    console.log(parentColor);
 
     button.addEventListener("click", () => {
       let storageContentFilter = storageContent.filter(
@@ -78,6 +78,28 @@ function deleteArticle() {
         "articlesInCart",
         JSON.stringify(storageContentFilter)
       );
+      window.location.reload();
+    });
+  });
+}
+
+function changeQuantity() {
+  let quantityInputs = document.querySelectorAll(".itemQuantity");
+
+  quantityInputs.forEach((quantityInput) => {
+    let parent = quantityInput.closest("article");
+    let parentId = parent.dataset.id;
+    let parentColor = parent.dataset.color;
+
+    quantityInput.addEventListener("change", () => {
+      let newQantity = Number(quantityInput.value);
+
+      storageContent.forEach((element) => {
+        if (element.id == parentId && element.color == parentColor) {
+          element.quantity = newQantity;
+        }
+      });
+      localStorage.setItem("articlesInCart", JSON.stringify(storageContent));
       window.location.reload();
     });
   });
