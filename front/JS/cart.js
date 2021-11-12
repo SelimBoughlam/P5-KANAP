@@ -104,3 +104,69 @@ function changeQuantity() {
     });
   });
 }
+
+const errorDisplay = (tag, message, valid) => {
+  let errorMsg = document.getElementById(tag + "ErrorMsg");
+  if (!valid) {
+    errorMsg.textContent = message;
+  } else {
+    errorMsg.textContent = "";
+  }
+};
+
+// const firstInput = document.getElementById("firstName");
+
+// firstInput.addEventListener("input", (e) => {
+//   let value = e.target.value;
+//   if (value.match(/^[a-z ,.'-]+$/i) || value.length < 1) {
+//     errorDisplay("firstName", "", true);
+//   } else {
+//     errorDisplay("firstName", "merci d'entrer un nom valide", false);
+//   }
+// });
+
+function firstNameLastNameCityChecker(value, id) {
+  if (value.match(/^[a-z ,.'-]+$/i) || value.length < 1) {
+    if (id == "firstName") {
+      errorDisplay("firstName", "", true);
+    } else if (id == "lastName") {
+      errorDisplay("lastName", "", true);
+    } else {
+      errorDisplay("city", "", true);
+    }
+  } else {
+    if (id == "firstName") {
+      errorDisplay("firstName", "merci d'entrer un prénom valide", false);
+    } else if (id == "lastName") {
+      errorDisplay("lastName", "merci d'entrer un nom valide", false);
+    } else {
+      errorDisplay("city", "merci d'entrer un nom de ville valide", false);
+    }
+  }
+}
+
+function adressChecker() {}
+function emailChecker() {}
+
+const inputs = document.querySelectorAll("input[type=text],input[type=email]");
+
+inputs.forEach((input) => {
+  input.addEventListener("input", (e) => {
+    switch (e.target.id) {
+      case "firstName":
+        firstNameLastNameCityChecker(e.target.value, e.target.id);
+        break;
+      case "lastName":
+        firstNameLastNameCityChecker(e.target.value, e.target.id);
+      case "city":
+        firstNameLastNameCityChecker(e.target.value, e.target.id);
+      case "adress":
+        adressChecker();
+      case "email":
+        emailChecker();
+
+      default:
+        break;
+    }
+  });
+});
