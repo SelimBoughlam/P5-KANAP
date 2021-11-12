@@ -114,17 +114,6 @@ const errorDisplay = (tag, message, valid) => {
   }
 };
 
-// const firstInput = document.getElementById("firstName");
-
-// firstInput.addEventListener("input", (e) => {
-//   let value = e.target.value;
-//   if (value.match(/^[a-z ,.'-]+$/i) || value.length < 1) {
-//     errorDisplay("firstName", "", true);
-//   } else {
-//     errorDisplay("firstName", "merci d'entrer un nom valide", false);
-//   }
-// });
-
 function firstNameLastNameCityChecker(value, id) {
   if (value.match(/^[a-z ,.'-]+$/i) || value.length < 1) {
     if (id == "firstName") {
