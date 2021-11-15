@@ -114,22 +114,30 @@ const errorDisplay = (tag, message, valid) => {
   }
 };
 
+let firstName, lastName, address, city, email;
+
 function firstNameLastNameCityChecker(value, id) {
   if (value.match(/^[a-z ,.'-]+$/i) || value.length < 1) {
     if (id == "firstName") {
       errorDisplay("firstName", "", true);
+      firstName = value;
     } else if (id == "lastName") {
       errorDisplay("lastName", "", true);
+      lastName = value;
     } else {
       errorDisplay("city", "", true);
+      city = value;
     }
   } else {
     if (id == "firstName") {
       errorDisplay("firstName", "merci d'entrer un prénom valide", false);
+      firstName = null;
     } else if (id == "lastName") {
       errorDisplay("lastName", "merci d'entrer un nom valide", false);
+      lastName = null;
     } else {
       errorDisplay("city", "merci d'entrer un nom de ville valide", false);
+      city = null;
     }
   }
 }
@@ -137,22 +145,27 @@ function firstNameLastNameCityChecker(value, id) {
 function addressChecker(value) {
   if (value.match(/^[a-z0-9 ,.'-]+$/i) || value.length < 1) {
     errorDisplay("address", "ok", true);
+    address = value;
   } else {
     errorDisplay("address", "merci d'entrer une adresse valide", false);
+    address = null;
   }
 }
+
 function emailChecker(value) {
   if (
     value.match(/\b[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}\b/i) ||
     value.length < 1
   ) {
     errorDisplay("email", "", true);
+    email = value;
   } else {
     errorDisplay(
       "email",
       "merci d'entrer une adresse email au format correct",
       false
     );
+    email = null;
   }
 }
 
@@ -181,4 +194,50 @@ inputs.forEach((input) => {
         break;
     }
   });
+});
+
+const form = document.querySelector("form");
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let contact;
+  let products;
+  let dataToSend;
+  let orderId;
+
+  if (firstName && lastName && address && city && email) {
+    contact = {
+      firstName: firstName,
+      lastName: lastName,
+      address: address,
+      city: city,
+      email: email,
+    };
+    products = storageContent.map((element) => element.id);
+
+    dataToSend = {
+      contact,
+      products,
+    };
+
+    getOrderId();
+  } else {
+    alert("le formulaire contient des erreurs");
+  }
+
+  async function getOrderId() {
+    await fetch("http://localhost:3000/api/products/order", {
+      method: "POST",
+      body: JSON.stringify(dataToSend),
+
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => (orderId = data.orderId));
+
+    window.location.replace("./confirmation.html?id=" + orderId);
+    localStorage.clear();
+  }
 });
