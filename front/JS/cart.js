@@ -134,8 +134,27 @@ function firstNameLastNameCityChecker(value, id) {
   }
 }
 
-function adressChecker() {}
-function emailChecker() {}
+function addressChecker(value) {
+  if (value.match(/^[a-z0-9 ,.'-]+$/i) || value.length < 1) {
+    errorDisplay("address", "ok", true);
+  } else {
+    errorDisplay("address", "merci d'entrer une adresse valide", false);
+  }
+}
+function emailChecker(value) {
+  if (
+    value.match(/\b[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}\b/i) ||
+    value.length < 1
+  ) {
+    errorDisplay("email", "", true);
+  } else {
+    errorDisplay(
+      "email",
+      "merci d'entrer une adresse email au format correct",
+      false
+    );
+  }
+}
 
 const inputs = document.querySelectorAll("input[type=text],input[type=email]");
 
@@ -147,12 +166,16 @@ inputs.forEach((input) => {
         break;
       case "lastName":
         firstNameLastNameCityChecker(e.target.value, e.target.id);
+        break;
       case "city":
         firstNameLastNameCityChecker(e.target.value, e.target.id);
-      case "adress":
-        adressChecker();
+        break;
+      case "address":
+        addressChecker(e.target.value);
+        break;
       case "email":
-        emailChecker();
+        emailChecker(e.target.value);
+        break;
 
       default:
         break;
