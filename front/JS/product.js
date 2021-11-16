@@ -109,6 +109,8 @@ function addToCart() {
         }
       });
       cart.push(article);
+      cart.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+      console.log(cart);
       localStorage.setItem("articlesInCart", JSON.stringify(cart));
     }
   });
