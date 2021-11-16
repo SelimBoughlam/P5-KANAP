@@ -1,7 +1,13 @@
 "use strict";
+// Récupération du LocalStorage sur cette page
 let storageContent = JSON.parse(localStorage.getItem("articlesInCart"));
+
 displayProductsInCart();
 
+/**
+ * Fonction Principale qui affichera les produits dans le panier
+ * Appel des fonctions Annexes
+ */
 function displayProductsInCart() {
   createElement();
   totals();
@@ -9,6 +15,10 @@ function displayProductsInCart() {
   changeQuantity();
 }
 
+/**
+ * Fonction qui crée la structure HTML
+ * pour chaque élement présents dans le LocalStorage:création de la structure HTML
+ */
 function createElement() {
   storageContent.forEach((element) => {
     let itemsContainer = document.getElementById("cart__items");
@@ -43,6 +53,7 @@ function createElement() {
   });
 }
 
+// Fonction qui calcule et affiche sur le DOM les totaux(produits + prix)
 function totals() {
   let totalQuantity = document.getElementById("totalQuantity");
   let totalPrice = document.getElementById("totalPrice");
@@ -61,6 +72,7 @@ function totals() {
   totalPrice.textContent = resultPrice;
 }
 
+// Fonction qui permet la suppression d'un article via le bouton supprimer
 function deleteArticle() {
   let deleteButton = document.querySelectorAll(".deleteItem");
 
@@ -83,6 +95,7 @@ function deleteArticle() {
   });
 }
 
+// Fonction qui permet le changement de quantité des articles via le DOM
 function changeQuantity() {
   let quantityInputs = document.querySelectorAll(".itemQuantity");
 
