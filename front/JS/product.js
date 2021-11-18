@@ -60,6 +60,7 @@ function displayProducts() {
  */
 function colorSelection() {
   let colors = product.colors;
+
   colors.forEach((color) => {
     let colorPicking = document.getElementById("colors");
     let option = document.createElement("option");
@@ -68,6 +69,10 @@ function colorSelection() {
     colorPicking.appendChild(option);
   });
 }
+
+let colorContainer = document.querySelector(".item__content__settings__color");
+let colorError = document.createElement("p");
+colorContainer.appendChild(colorError);
 
 /**
  *     Fonction permettant l'ajout du produit sélectionné dans le panier
@@ -96,22 +101,28 @@ function addToCart() {
 
     let cart = [];
 
-    if (JSON.parse(localStorage.getItem("articlesInCart")) == null) {
-      cart.push(article);
-      localStorage.setItem("articlesInCart", JSON.stringify(cart));
+    if (article.color == "") {
+      colorError.innerText = "Merci de choisir une couleur";
+      colorError.style = "color : orange";
     } else {
-      let storage = JSON.parse(localStorage.getItem("articlesInCart"));
-      storage.forEach((data) => {
-        if (article.id == data.id && article.color == data.color) {
-          article.quantity = article.quantity + data.quantity;
-        } else {
-          cart.push(data);
-        }
-      });
-      cart.push(article);
-      cart.sort((a, b) => parseInt(a.id) - parseInt(b.id));
-      console.log(cart);
-      localStorage.setItem("articlesInCart", JSON.stringify(cart));
+      colorError.innerText = "";
+      if (JSON.parse(localStorage.getItem("articlesInCart")) == null) {
+        cart.push(article);
+        localStorage.setItem("articlesInCart", JSON.stringify(cart));
+      } else {
+        let storage = JSON.parse(localStorage.getItem("articlesInCart"));
+        storage.forEach((data) => {
+          if (article.id == data.id && article.color == data.color) {
+            article.quantity = article.quantity + data.quantity;
+          } else {
+            cart.push(data);
+          }
+        });
+        cart.push(article);
+        cart.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+
+        localStorage.setItem("articlesInCart", JSON.stringify(cart));
+      }
     }
   });
 }

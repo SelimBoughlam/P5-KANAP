@@ -202,9 +202,6 @@ inputs.forEach((input) => {
       case "email":
         emailChecker(e.target.value);
         break;
-
-      default:
-        break;
     }
   });
 });
