@@ -207,6 +207,8 @@ inputs.forEach((input) => {
 });
 
 const form = document.querySelector("form");
+let formErrorsContainer = document.querySelector(".cart__order__form__submit");
+let formErrors = document.createElement("span");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -223,6 +225,7 @@ form.addEventListener("submit", (e) => {
       city: city,
       email: email,
     };
+
     products = storageContent.map((element) => element.id);
 
     dataToSend = {
@@ -232,7 +235,11 @@ form.addEventListener("submit", (e) => {
 
     getOrderId();
   } else {
-    alert("le formulaire contient des erreurs");
+    formErrors.textContent = "Merci de remplir correctement tous les champs";
+    formErrorsContainer.style =
+      "display:flex;flex-direction:column;align-items:center";
+    formErrors.style = "color:orange;margin-top:5px";
+    formErrorsContainer.appendChild(formErrors);
   }
 
   async function getOrderId() {
