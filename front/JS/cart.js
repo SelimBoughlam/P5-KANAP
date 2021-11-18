@@ -238,7 +238,7 @@ form.addEventListener("submit", (e) => {
     formErrors.textContent = "Merci de remplir correctement tous les champs";
     formErrorsContainer.style =
       "display:flex;flex-direction:column;align-items:center";
-    formErrors.style = "color:orange;margin-top:5px";
+    formErrors.style = "color:orange;margin-top:20px";
     formErrorsContainer.appendChild(formErrors);
   }
 
