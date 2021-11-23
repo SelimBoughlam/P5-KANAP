@@ -9,12 +9,13 @@ displayProductsInCart();
  * Appel des fonctions Annexes
  */
 function displayProductsInCart() {
-  createElement();
-  totals();
-  deleteArticle();
-  changeQuantity();
+  if (storageContent) {
+    createElement();
+    totals();
+    deleteArticle();
+    changeQuantity();
+  }
 }
-
 /**
  * Fonction qui crée la structure HTML
  * pour chaque élement présents dans le LocalStorage:création de la structure HTML
@@ -218,10 +219,10 @@ form.addEventListener("submit", (e) => {
 
   if (firstName && lastName && address && city && email) {
     contact = {
-      firstName: firstName,
-      lastName: lastName,
-      address: address,
-      city: city,
+      firstName: firstName.trim(),
+      lastName: lastName.trim(),
+      address: address.trim(),
+      city: city.trim(),
       email: email,
     };
 
