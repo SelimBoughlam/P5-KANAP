@@ -120,6 +120,7 @@ function changeQuantity() {
   });
 }
 
+// Gestion de l'affichage des erreurs pour les champs du formulaire
 const errorDisplay = (tag, message, valid) => {
   let errorMsg = document.getElementById(tag + "ErrorMsg");
   if (!valid) {
@@ -131,6 +132,7 @@ const errorDisplay = (tag, message, valid) => {
 
 let firstName, lastName, address, city, email;
 
+// fonction de vérification des champs prénon,Nom et Ville
 function firstNameLastNameCityChecker(value, id) {
   if (value.match(/^[a-z ,.'-]{1,25}$/i) || value.length < 1) {
     if (id == "firstName") {
@@ -157,6 +159,7 @@ function firstNameLastNameCityChecker(value, id) {
   }
 }
 
+// Fonction de vérification du champs adresse(postale)
 function addressChecker(value) {
   if (value.match(/^[a-z0-9 ,.'-]{10,}$/i) || value.length < 1) {
     errorDisplay("address", "ok", true);
@@ -167,6 +170,7 @@ function addressChecker(value) {
   }
 }
 
+// fonction de verification du champ Email
 function emailChecker(value) {
   if (
     value.match(/\b[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}\b/i) ||
@@ -186,6 +190,10 @@ function emailChecker(value) {
 
 const inputs = document.querySelectorAll("input[type=text],input[type=email]");
 
+/**
+ * Verification de la validité des champs par leur ID
+ * Appel de la fonction correspondante à l'ID du champs rempli
+ */
 inputs.forEach((input) => {
   input.addEventListener("input", (e) => {
     switch (e.target.id) {
@@ -212,6 +220,10 @@ const form = document.querySelector("form");
 let formErrorsContainer = document.querySelector(".cart__order__form__submit");
 let formErrors = document.createElement("span");
 
+/**Validation du formulaire
+ * si les champs sont correctements remplis,appel de la fonction getOrderId()
+ * si Non,affichage d'une erreur demandant à l'utilisateur de remplir convenablement le formulaire
+ */
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   let contact;
@@ -243,6 +255,11 @@ form.addEventListener("submit", (e) => {
     formErrorsContainer.appendChild(formErrors);
   }
 
+  /**
+   * Requete de type POST à l'api
+   * recupération de la réponse
+   * traitement de la réponse: redirection de l'utilisateur vers la page confirmation
+   */
   async function getOrderId() {
     await fetch("http://localhost:3000/api/products/order", {
       method: "POST",
