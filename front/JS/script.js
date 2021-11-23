@@ -1,6 +1,7 @@
 "use strict";
 getProducts();
 let products;
+let items = document.getElementById("items");
 /**
  * Fonction qui récupère les données dans l'API
  * Appel de l'API
@@ -10,8 +11,16 @@ let products;
 async function getProducts() {
   await fetch("http://localhost:3000/api/products/")
     .then((res) => res.json())
-    .then((data) => (products = data));
+    .then((data) => (products = data))
+    .catch((error) => errorDisplay());
   displayProducts();
+}
+
+function errorDisplay() {
+  let errorContainer = document.createElement("p");
+  errorContainer.textContent =
+    "une erreur est surevenue,merci de réessayer ultérieurement";
+  items.appendChild(errorContainer);
 }
 
 /**
@@ -24,8 +33,6 @@ async function getProducts() {
  */
 function displayProducts() {
   products.forEach((product) => {
-    let items = document.getElementById("items");
-
     let link = document.createElement("a");
     link.setAttribute("href", `product.html?id=${product._id}`);
     items.appendChild(link);

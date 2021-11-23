@@ -215,7 +215,6 @@ form.addEventListener("submit", (e) => {
   let contact;
   let products;
   let dataToSend;
-  let orderId;
 
   if (firstName && lastName && address && city && email) {
     contact = {
@@ -252,9 +251,10 @@ form.addEventListener("submit", (e) => {
       },
     })
       .then((response) => response.json())
-      .then((data) => (orderId = data.orderId));
+      .then((data) =>
+        window.location.replace("./confirmation.html?id=" + data.orderId)
+      );
 
-    window.location.replace("./confirmation.html?id=" + orderId);
     localStorage.clear();
   }
 });
