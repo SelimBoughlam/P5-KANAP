@@ -13,9 +13,9 @@ let product;
  */
 async function getProducts() {
   const productId = getProductId();
-  await fetch(`http://localhost:3000/api/products/${productId}`).then((res) =>
-    res.json().then((data) => (product = data))
-  );
+  await fetch(`http://localhost:3000/api/products/${productId}`)
+    .then((res) => res.json().then((data) => (product = data)))
+    .catch((error) => errorDisplay());
   displayProducts();
   colorSelection();
   addToCart();
@@ -26,6 +26,17 @@ async function getProducts() {
  */
 function getProductId() {
   return new URL(document.location).searchParams.get("id");
+}
+
+/**
+ * fonction qui gère l'affiche d'une erreur si API indisponible
+ */
+function errorDisplay() {
+  let item = document.getElementById("id");
+  let errorContainer = document.createElement("p");
+  errorContainer.textContent =
+    "une erreur est survenue,merci de réessayer ultérieurement";
+  item.appendChild(errorContainer);
 }
 
 /**

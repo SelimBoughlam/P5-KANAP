@@ -16,6 +16,9 @@ async function getProducts() {
   displayProducts();
 }
 
+/**
+ * Fonction qui affichera une erreur si l'api est indisponible
+ */
 function errorDisplay() {
   let errorContainer = document.createElement("p");
   errorContainer.textContent =
