@@ -2,6 +2,7 @@
 // Récupération du LocalStorage sur cette page
 let storageContent = JSON.parse(localStorage.getItem("articlesInCart"));
 
+//Appel de la fonction principale
 displayProductsInCart();
 
 /**
@@ -131,7 +132,7 @@ const errorDisplay = (tag, message, valid) => {
 let firstName, lastName, address, city, email;
 
 function firstNameLastNameCityChecker(value, id) {
-  if (value.match(/^[a-z ,.'-]+$/i) || value.length < 1) {
+  if (value.match(/^[a-z ,.'-]{1,25}$/i) || value.length < 1) {
     if (id == "firstName") {
       errorDisplay("firstName", "", true);
       firstName = value;
@@ -157,7 +158,7 @@ function firstNameLastNameCityChecker(value, id) {
 }
 
 function addressChecker(value) {
-  if (value.match(/^[a-z0-9 ,.'-]+$/i) || value.length < 1) {
+  if (value.match(/^[a-z0-9 ,.'-]{10,}$/i) || value.length < 1) {
     errorDisplay("address", "ok", true);
     address = value;
   } else {
