@@ -12,14 +12,17 @@ async function getProducts() {
   await fetch("http://localhost:3000/api/products/")
     .then((res) => res.json())
     .then((data) => (products = data))
-    .catch((error) => errorDisplay());
+    .catch((error) => errorDisplay(error));
   displayProducts();
 }
 
 /**
  * Fonction qui affichera une erreur si l'api est indisponible
  */
-function errorDisplay() {
+function errorDisplay(error = null) {
+  if (error != null) {
+    console.log(error);
+  }
   let errorContainer = document.createElement("p");
   errorContainer.textContent =
     "une erreur est surevenue,merci de réessayer ultérieurement";

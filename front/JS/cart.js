@@ -7,7 +7,7 @@ displayProductsInCart();
 
 /**
  * Fonction Principale qui affichera les produits dans le panier
- * Appel des fonctions Annexes
+ * s'il y a quelque chose dans le localStorage:Appel des fonctions Annexes
  */
 function displayProductsInCart() {
   if (storageContent) {
@@ -132,7 +132,7 @@ const errorDisplay = (tag, message, valid) => {
 
 let firstName, lastName, address, city, email;
 
-// fonction de vérification des champs prénon,Nom et Ville
+// fonction de vérification des champs prénom,Nom et Ville
 function firstNameLastNameCityChecker(value, id) {
   if (value.match(/^[a-z ,.'-]{1,25}$/i) || value.length < 1) {
     if (id == "firstName") {
@@ -192,7 +192,7 @@ const inputs = document.querySelectorAll("input[type=text],input[type=email]");
 
 /**
  * Verification de la validité des champs par leur ID
- * Appel de la fonction correspondante à l'ID du champs rempli
+ * Appel de la fonction correspondante à l'ID du champ rempli
  */
 inputs.forEach((input) => {
   input.addEventListener("input", (e) => {
@@ -236,7 +236,7 @@ form.addEventListener("submit", (e) => {
       lastName: lastName.trim(),
       address: address.trim(),
       city: city.trim(),
-      email: email,
+      email: email.trim(),
     };
 
     products = storageContent.map((element) => element.id);
